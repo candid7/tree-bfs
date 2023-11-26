@@ -1,10 +1,13 @@
 class CustomQueue {
-        constructor() {
+    constructor() {
         this.items = [];
     }
 
     add(item) {
-        this.items.push(item);
+        if (item) {
+            this.items.push(item);
+        }
+        return this;
     }
 
     get() {
@@ -18,5 +21,5 @@ class CustomQueue {
 }
 
 module.exports = {
-    "Queue" : CustomQueue
+    "Queue": CustomQueue
 }
