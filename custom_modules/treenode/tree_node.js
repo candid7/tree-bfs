@@ -1,4 +1,4 @@
-const {position} = require("../position");
+const {nodePosition} = require("./position");
 
 class TreeNode {
     constructor(a, b, position) {
@@ -11,11 +11,11 @@ class TreeNode {
         this.parent = this;
         let valueAB = (this.valueA + this.valueB);
         if ((this.valueA + valueAB) < valueC) {
-            this.left = new TreeNode(this.valueA, valueAB, position.left);
+            this.left = new TreeNode(this.valueA, valueAB, nodePosition.left);
         }
 
         if ((valueAB + this.valueB) < valueC) {
-            this.right = new TreeNode(valueAB, this.valueB, position.right);
+            this.right = new TreeNode(valueAB, this.valueB, nodePosition.right);
         }
     }
 
@@ -35,7 +35,7 @@ class TreeNode {
         return false;
     }
 
-    searchByAll(valueC) {
+    found(valueC) {
         let sum = (this.valueA + this.valueB);
         if (this.checkByValueA(sum, valueC) || this.checkByValueB(sum, valueC)) {
             return true;
@@ -45,7 +45,7 @@ class TreeNode {
         return false;
     }
 
-    searchByValueA(valueC) {
+    foundByValueA(valueC) {
         let sum = (this.valueA + this.valueB);
         if (this.checkByValueA(sum, valueC)) {
             return true;
@@ -55,7 +55,7 @@ class TreeNode {
         return false;
     }
 
-    searchByValueB(valueC) {
+    foundByValueB(valueC) {
         let sum = (this.valueA + this.valueB);
         if (this.checkByValueB(sum, valueC)) {
             return true;

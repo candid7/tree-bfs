@@ -1,5 +1,5 @@
 module.exports = {
-    "position" : {
+    "nodePosition" : {
         left: 0,
         right: 1
     }
