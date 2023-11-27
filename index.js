@@ -9,7 +9,7 @@ function search(valueA, valueB, valueC, searchByPosition) {
             return "YES";
         }
 
-        if (node.parent.position === NodePosition.left) {
+        if (node.parentPosition === NodePosition.left) {
             queue.add(node.left).add(node.right);
         } else {
             queue.add(node.right).add(node.left);
@@ -17,7 +17,7 @@ function search(valueA, valueB, valueC, searchByPosition) {
         if (!queue.isEmpty()) {
             node = queue.get();
         }
-
+       // console.log(node.toString())
     } while (!queue.isEmpty());
     return "NO";
 }
@@ -25,16 +25,17 @@ function search(valueA, valueB, valueC, searchByPosition) {
 let a = 5;
 let b = 7;
 let c = 123;
-console.log(`Введенные значения a=${a} b=${b} c=${c}`);
+console.log(`Введенные значения a=${a} b=${b} c=${c}\n`);
+
 console.log(`== 1. Поиск по левой значение`);
 let resultA = search(a, b, c, NodePosition.left);
 console.log(`Результат поиска: ${resultA}\n`);
 
 console.log(`== 2. Поиск по правой значение`);
-let result3 = search(a, b, c, NodePosition.right);
-console.log(`Результат поиска: ${result3} \n`);
+let resultB = search(a, b, c, NodePosition.right);
+console.log(`Результат поиска: ${resultB} \n`);
 
 console.log(`== 3. Поиск по левой и правой значение`);
-let result = search(a, b, c, NodePosition.all);
+let result = search(a, b, c, null);
 console.log(`Результат поиска: ${result}`);
 

@@ -1,5 +1,4 @@
 const nodePosition = {
-    all: 0,
     left: 1,
     right: 2
 };
@@ -8,48 +7,35 @@ class TreeNode {
     constructor(a, b, position) {
         this.valueA = a;
         this.valueB = b;
-        this.position = position;
+        this.parentPosition = position;
     }
 
-    addChildren(valueAB, valueC) {
-        if ((this.valueA + valueAB) < valueC) {
-            this.left = new TreeNode(this.valueA, valueAB, nodePosition.left);
-        }
+    found(c, searchByPosition) {
+        let sumAB = (this.valueA + this.valueB);
+        let nextValueA = (this.valueA + sumAB);
+        let nextValueB = (sumAB + this.valueB);
 
-        if ((valueAB + this.valueB) < valueC) {
-            this.right = new TreeNode(valueAB, this.valueB, nodePosition.right);
-        }
-    }
-
-    compareValue(valueAB, valueC, valuePosition) {
-        if (valuePosition === nodePosition.left && (this.valueA + valueAB) === valueC) {
-            console.log('Найден узел: [' + (this.valueA + valueAB) + ',' + valueAB + ']');
+        if (searchByPosition !== nodePosition.right && nextValueA === c) {
+            this.printFoundNode(nextValueA, sumAB);
             return true;
         }
 
-        if (valuePosition === nodePosition.right && (valueAB + this.valueB) === valueC) {
-            console.log('Найден узел: [' + valueAB + ',' + (valueAB + this.valueB) + ']');
-            return true;
-        }
-        return false;
-    }
-
-    found(valueC, searchByPosition) {
-        this.parent = this;
-        let valueAB = (this.valueA + this.valueB);
-        if (searchByPosition !== nodePosition.right && this.compareValue(valueAB, valueC, nodePosition.left)) {
+        if (searchByPosition !== nodePosition.left && nextValueB === c) {
+            this.printFoundNode(sumAB, nextValueB);
             return true;
         }
 
-        if (searchByPosition !== nodePosition.left && this.compareValue(valueAB, valueC, nodePosition.right)) {
-            return true;
-        }
-        this.addChildren(valueAB, valueC);
+        if (nextValueA < c) this.left = new TreeNode(this.valueA, sumAB, nodePosition.left);
+        if (nextValueB < c) this.right = new TreeNode(sumAB, this.valueB, nodePosition.right);
         return false;
     }
 
     toString() {
         return "[" + this.valueA + "," + this.valueB + "]";
+    }
+
+    printFoundNode(a, b) {
+        console.log('Найден узел: [' + a + ',' + b + ']');
     }
 }
 
